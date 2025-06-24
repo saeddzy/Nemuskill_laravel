@@ -16,6 +16,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call([
+            RoleSeeder::class,
+            CategorySeeder::class,
+        ]);
+
         Role::create(['name' => 'student']);
         Role::create(['name' => 'teacher']);
         Role::create(['name' => 'admin']);
@@ -23,7 +28,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('somesecretpassword'),
+            'password' => bcrypt('sikret123'),
             'role_id' => 3
         ]);
 

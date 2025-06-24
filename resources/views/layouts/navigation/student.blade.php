@@ -5,15 +5,30 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('student.timetable') }}">
+                    <a href="{{ route('student.homepage') }}">
                         <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('student.timetable')" :active="request()->routeIs('student.timetable')">
-                        {{ __('Timetable') }}
+                    <x-nav-link :href="route('student.homepage')" :active="request()->routeIs('student.homepage')">
+                        {{ __('Homepage') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('student.myclass')" :active="request()->routeIs('student.myclass')">
+                        {{ __('My Class') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('student.findclass')" :active="request()->routeIs('student.findclass')">
+                        {{ __('Find Class') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('student.planning')" :active="request()->routeIs('student.planning')">
+                        {{ __('Planning') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('student.invoice')" :active="request()->routeIs('student.invoice')">
+                        {{ __('Invoice') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('student.reviews.index')" :active="request()->routeIs('student.reviews.*')">
+                        {{ __('Ulasan') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -23,8 +38,16 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
-
+                            <div class="flex items-center space-x-2">
+                                @if(Auth::user()->profile_picture)
+                                    <img src="{{ asset('storage/profile-pictures/' . Auth::user()->profile_picture) }}" alt="Profile" class="w-8 h-8 rounded-full object-cover border border-gray-300">
+                                @else
+                                    <svg class="w-8 h-8 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                                    </svg>
+                                @endif
+                                <span>{{ Auth::user()->name }}</span>
+                            </div>
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -34,6 +57,10 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('student.profile')">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -63,8 +90,23 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('student.timetable')" :active="request()->routeIs('student.timetable')">
-                {{ __('Timetable') }}
+            <x-responsive-nav-link :href="route('student.homepage')" :active="request()->routeIs('student.homepage')">
+                {{ __('Homepage') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('student.myclass')" :active="request()->routeIs('student.myclass')">
+                {{ __('My Class') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('student.findclass')" :active="request()->routeIs('student.findclass')">
+                {{ __('Find Class') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('student.planning')" :active="request()->routeIs('student.planning')">
+                {{ __('Planning') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('student.invoice')" :active="request()->routeIs('student.invoice')">
+                {{ __('Invoice') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('student.reviews.index')" :active="request()->routeIs('student.reviews.*')">
+                {{ __('Ulasan') }}
             </x-responsive-nav-link>
         </div>
 
@@ -76,6 +118,10 @@
             </div>
 
             <div class="mt-3 space-y-1">
+                <x-responsive-nav-link :href="route('student.profile')">
+                    {{ __('Profile') }}
+                </x-responsive-nav-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -22,6 +22,13 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'full_name',
+        'phone_number',
+        'additional_info',
+        'last_education',
+        'interests',
+        'bio',
+        'profile_picture'
     ];
 
     /**
@@ -46,9 +53,14 @@ class User extends Authenticatable
     public function getRedirectRouteName()
     {
         return match ((int)$this->role_id) {
-            1 => 'student.timetable',
-            2 => 'teacher.timetable',
-            3 => 'admin.users',
+            1 => 'student.homepage',
+            2 => 'teacher.homepage',
+            3 => 'admin.dashboard',
         };
+    }
+
+    public function plans()
+    {
+        return $this->hasMany(\App\Models\Plan::class);
     }
 }
